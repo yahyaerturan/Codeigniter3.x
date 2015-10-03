@@ -38,6 +38,50 @@
 
 /*
  *---------------------------------------------------------------
+ * CHECK REQUIRED FUNCTIONS
+ *---------------------------------------------------------------
+ *
+ * Check required functions to run.
+ * <YahyaERTURAN/>
+ *
+ * Usage : function_exists('xxx') || die('PHP xx function not installed. Request terminated.');
+ *
+ */
+
+
+/*
+ *---------------------------------------------------------------
+ * DEFAULT TIME ZONE & DEFAULT CHARSET
+ *---------------------------------------------------------------
+ *
+ * Set your default time zone
+ * <YahyaERTURAN/>
+ *
+ */
+  date_default_timezone_set('Europe/Istanbul');
+  ini_set('default_charset', 'UTF-8');
+
+/*
+ *---------------------------------------------------------------
+ * BASEURL DEFINITION
+ *---------------------------------------------------------------
+ *
+ * Define BASEURL here for further reference
+ * <YahyaERTURAN/>
+ *
+ */
+  $base_url = '';
+  if (defined('STDIN')) {
+    $base_url = "http://codeigniter3.dev/";
+  } else {
+    $base_url  = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "https" : "http");
+    $base_url .= "://".$_SERVER['HTTP_HOST'];
+    $base_url .= str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
+  }
+  DEFINE('BASE_URL',$base_url);
+
+/*
+ *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT
  *---------------------------------------------------------------
  *
@@ -53,7 +97,18 @@
  *
  * NOTE: If you change these, also change the error_reporting() code below
  */
-	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
+	/* Default Value = define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development'); */
+	/* <YahyaERTURAN/> */
+	switch (dirname(__FILE__))
+  {
+    case '/home/yahya/web-server/web-projects/codeigniter3.x/public_html':
+      define('ENVIRONMENT', 'development');
+    break;
+
+    default:
+      define('ENVIRONMENT', 'production');
+    break;
+  }
 
 /*
  *---------------------------------------------------------------
