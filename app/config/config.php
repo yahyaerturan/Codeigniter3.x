@@ -3,6 +3,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /*
 |--------------------------------------------------------------------------
+| Autoload Controller Files in APPPATH."libraries/" directory
+|--------------------------------------------------------------------------
+|
+| This will check the files inside libraries directory and will autoload
+| (basically include_once) these files.
+|
+*/
+if(!function_exists('__autoload')) {
+  function __autoload($classname) {
+    if (strpos($classname, 'CI_') !== 0) {
+      $file = APPPATH . 'libraries/' . $classname . '.php';
+      if (file_exists($file) && is_file($file)) {
+        @include_once($file);
+      }
+    }
+  }
+}
+
+/*
+|--------------------------------------------------------------------------
 | Base Site URL
 |--------------------------------------------------------------------------
 |
@@ -266,7 +286,7 @@ $config['log_date_format'] = 'Y-m-d H:i:s';
 | application/views/errors/ directory.  Use a full server path with trailing slash.
 |
 */
-$config['error_views_path'] = 'public/views/errors/';
+$config['error_views_path'] = FCPATH.'public/views/errors/';
 
 /*
 |--------------------------------------------------------------------------
